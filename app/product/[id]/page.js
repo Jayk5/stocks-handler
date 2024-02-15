@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import ChartComponent from './Chart';
 
 const ProductPage = ({ params }) => {
   const [stockData, setStockData] = useState(null);
@@ -65,6 +66,9 @@ const ProductPage = ({ params }) => {
       </div>
       <h1 className="text-4xl font-bold mb-4">{Name} ({Symbol})</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <ChartComponent />
+        </div>
         <div>
           <p className="text-lg text-gray-700">{Description}</p>
         </div>

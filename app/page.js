@@ -1,12 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-
 import Link from 'next/link';
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState('gainers');
   const [gainersData, setGainersData] = useState([]);
   const [losersData, setLosersData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,22 +16,26 @@ const HomePage = () => {
           const parsedData = JSON.parse(cachedData);
           setGainersData(parsedData.top_gainers);
           setLosersData(parsedData.top_losers);
+          setLoading(false);
           return;
         }
+
+        setLoading(true);
+
         let response = await fetch(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.API_KEY}`);
         response = await response.json();
         localStorage.setItem('stockData', JSON.stringify(response));
         const { top_gainers, top_losers } = response;
-        console.log(response)
         setGainersData(top_gainers);
         setLosersData(top_losers);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
-
 
   return (
     <div className="container mx-auto p-4">
@@ -55,13 +59,15 @@ const HomePage = () => {
       </div>
 
       <div>
-        {activeTab === 'gainers' ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : activeTab === 'gainers' ? (
           <div>
             <h2 className="text-2xl font-bold mb-2">Top Gainers</h2>
             <ul>
               {gainersData.map((stock) => (
-                <Link href={`/product/${stock.ticker}`}>
-                  <li key={stock.ticker} className="mb-2">
+                <Link href={`/product/${stock.ticker}`} key={stock.ticker}>
+                  <li className="mb-2">
                     {stock.ticker}: {stock.change_percentage} ({stock.price})
                   </li>
                 </Link>
@@ -73,8 +79,8 @@ const HomePage = () => {
             <h2 className="text-2xl font-bold mb-2">Top Losers</h2>
             <ul>
               {losersData.map((stock) => (
-                <Link href={`/product/${stock.ticker}`}>
-                  <li key={stock.ticker} className="mb-2">
+                <Link href={`/product/${stock.ticker}`} key={stock.ticker}>
+                  <li className="mb-2">
                     {stock.ticker}: {stock.change_percentage} ({stock.price})
                   </li>
                 </Link>

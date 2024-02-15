@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
-export default function Navbar() {
+const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e) => {
@@ -33,3 +33,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+export default Navbar;
