@@ -16,10 +16,10 @@ const ProductPage = ({ params }) => {
           setStockData(parsedData);
           return;
         }
-        const response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${id}&apikey=${process.env.API_KEY}`);
-        const data = await response.json();
-        localStorage.setItem(id, JSON.stringify(data));
-        setStockData(data);
+        let response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${id}&apikey=${process.env.API_KEY}`);
+        response = await response.json();
+        localStorage.setItem(id, JSON.stringify(response));
+        setStockData(response);
       } catch (error) {
         console.error('Error fetching stock data:', error);
       }

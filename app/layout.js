@@ -1,7 +1,5 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
-import "./navbar"
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 
 export default function RootLayout({ children }) {
   return (
