@@ -38,7 +38,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 lg:max-w-screen-lg xl:max-w-screen-xl">
       <h1 className="text-4xl font-bold mb-4">Stock Market Dashboard</h1>
 
       <div className="flex mb-4">
@@ -63,12 +63,14 @@ const HomePage = () => {
           <p>Loading...</p>
         ) : activeTab === 'gainers' ? (
           <div>
-            <h2 className="text-2xl font-bold mb-2">Top Gainers</h2>
-            <ul>
+            <h2 className="text-2xl font-bold mb-4">Top Gainers</h2>
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {gainersData.map((stock) => (
                 <Link href={`/product/${stock.ticker}`} key={stock.ticker}>
-                  <li className="mb-2">
-                    {stock.ticker}: {stock.change_percentage} ({stock.price})
+                  <li className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                    <div className="text-black font-bold">{stock.ticker}</div>
+                    <div className="text-green-500">Change - {stock.change_percentage}</div>
+                    <div className="text-gray-700">Price - {stock.price}</div>
                   </li>
                 </Link>
               ))}
@@ -76,12 +78,14 @@ const HomePage = () => {
           </div>
         ) : (
           <div>
-            <h2 className="text-2xl font-bold mb-2">Top Losers</h2>
-            <ul>
+            <h2 className="text-2xl font-bold mb-4">Top Losers</h2>
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {losersData.map((stock) => (
                 <Link href={`/product/${stock.ticker}`} key={stock.ticker}>
-                  <li className="mb-2">
-                    {stock.ticker}: {stock.change_percentage} ({stock.price})
+                  <li className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">
+                    <div className="text-black font-bold">{stock.ticker}</div>
+                    <div className="text-red-500">{stock.change_percentage}</div>
+                    <div className="text-gray-700">{stock.price}</div>
                   </li>
                 </Link>
               ))}
