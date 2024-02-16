@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ChartComponent from './Chart';
 
@@ -13,11 +13,13 @@ const ProductPage = ({ params }) => {
         const cachedData = localStorage.getItem(id);
         if (cachedData) {
           const parsedData = JSON.parse(cachedData);
+          console.log(parsedData)
           setStockData(parsedData);
           return;
         }
         let response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${id}&apikey=${process.env.API_KEY}`);
         response = await response.json();
+        console.log(response)
         localStorage.setItem(id, JSON.stringify(response));
         setStockData(response);
       } catch (error) {
@@ -66,7 +68,7 @@ const ProductPage = ({ params }) => {
       </div>
       <h1 className="text-4xl font-bold mb-4">{Name} ({Symbol})</h1>
       <div className="grid grid-cols-1 gap-8">
-        <div>
+        <div className="bg-white">
           <ChartComponent />
         </div>
         <div>

@@ -5,7 +5,7 @@ import { Chart, LineSeries, LinearAxis, Tooltip, Point } from 'react-charts';
 const ChartComponent = () => {
   const generateRandomData = () => {
     const data = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 100; i++) {
       data.push({
         x: i,
         y: Math.floor(Math.random() * 100) + 1,
