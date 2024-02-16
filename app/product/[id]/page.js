@@ -44,6 +44,26 @@ const ProductPage = ({ params }) => {
     _50DayMovingAverage = 'N/A',
   } = stockData;
 
+  const stockDetails = [
+    { label: 'Asset Type', key: 'AssetType' },
+    { label: 'Exchange', key: 'Exchange' },
+    { label: 'Country', key: 'Country' },
+    { label: 'Sector', key: 'Sector' },
+    { label: 'Industry', key: 'Industry' },
+    { label: 'Address', key: 'Address' },
+    { label: 'Fiscal Year End', key: 'FiscalYearEnd' },
+    { label: 'Latest Quarter', key: 'LatestQuarter' },
+    { label: 'Market Capitalization', key: 'MarketCapitalization' },
+    { label: 'EBITDA', key: 'EBITDA' },
+    { label: 'PE Ratio', key: 'PERatio' },
+    { label: 'Quarterly Earnings Growth', key: 'QuarterlyEarningsGrowthYOY' },
+    { label: 'Quarterly Revenue Growth', key: 'QuarterlyRevenueGrowthYOY' },
+    { label: 'Analyst Target Price', key: 'AnalystTargetPrice' },
+    { label: '52 Week High', key: '_52WeekHigh' },
+    { label: '52 Week Low', key: '_52WeekLow' },
+    { label: '50 Day Moving Average', key: '_50DayMovingAverage' },
+  ];
+
   return (
     <div className="container mx-auto p-4 lg:max-w-screen-lg xl:max-w-screen-xl">
       <div className="mb-4">
@@ -63,96 +83,16 @@ const ProductPage = ({ params }) => {
         <div>
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Stock Details</h2>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-800">
-              <div className="mb-4">
-                <p className="text-lg font-bold">Asset Type</p>
-                <p className="text-xl">{AssetType}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Exchange</p>
-                <p className="text-xl">{Exchange}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Country</p>
-                <p className="text-xl">{Country}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Sector</p>
-                <p className="text-xl">{Sector}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Industry</p>
-                <p className="text-xl">{Industry}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Address</p>
-                <p className="text-xl">{Address}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Fiscal Year End</p>
-                <p className="text-xl">{FiscalYearEnd}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Latest Quarter</p>
-                <p className="text-xl">{LatestQuarter}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Market Capitalization</p>
-                <p className="text-xl">{MarketCapitalization}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">EBITDA</p>
-                <p className="text-xl">{EBITDA}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">PE Ratio</p>
-                <p className="text-xl">{PERatio}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Quarterly Earnings Growth</p>
-                <p className="text-xl">{QuarterlyEarningsGrowthYOY}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Quarterly Revenue Growth</p>
-                <p className="text-xl">{QuarterlyRevenueGrowthYOY}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">Analyst Target Price</p>
-                <p className="text-xl">{AnalystTargetPrice}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">52 Week High</p>
-                <p className="text-xl">{_52WeekHigh}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">52 Week Low</p>
-                <p className="text-xl">{_52WeekLow}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-lg font-bold">50 Day Moving Average</p>
-                <p className="text-xl">{_50DayMovingAverage}</p>
-              </div>
+              {stockDetails.map(({ label, key }) => (
+                <div key={key} className="mb-4">
+                  <p className="text-lg font-bold">{label}</p>
+                  <p className="text-xl">{stockData[key] || 'N/A'}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
