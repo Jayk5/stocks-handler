@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { fetchTopData } from '../utils/utils';
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState('gainers');
@@ -10,34 +11,10 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const cachedData = localStorage.getItem('stockData');
-
-        if (cachedData) {
-          const { timestamp, data } = JSON.parse(cachedData);
-          const currentTime = new Date().getTime();
-
-          if (currentTime - timestamp < 24 * 60 * 60 * 1000) {
-            setGainersData(data.top_gainers);
-            setLosersData(data.top_losers);
-            setLoading(false);
-            return;
-          }
-        }
-
-        setLoading(true);
-
-        let response = await fetch(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.API_KEY}`);
-        response = await response.json();
-        const { top_gainers, top_losers } = response;
-        localStorage.setItem('stockData', JSON.stringify({ timestamp: new Date().getTime(), data: response }));
-        setGainersData(top_gainers);
-        setLosersData(top_losers);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      }
+      const { gainers, losers } = await fetchTopData();
+      setGainersData(gainers);
+      setLosersData(losers);
+      setLoading(false);
     };
     fetchData();
   }, []);

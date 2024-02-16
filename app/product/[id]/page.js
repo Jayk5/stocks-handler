@@ -2,40 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ChartComponent from './Chart';
+import { fetchStockData } from '../../../utils/utils';
 
 const ProductPage = ({ params }) => {
   const [stockData, setStockData] = useState(null);
   const id = params.id;
 
   useEffect(() => {
-    const fetchStockData = async () => {
-      try {
-        const cachedData = localStorage.getItem(id);
-
-        if (cachedData) {
-          const { timestamp, data } = JSON.parse(cachedData);
-          const currentTime = new Date().getTime();
-          if (currentTime - timestamp < 24 * 60 * 60 * 1000) {
-            console.log('Using cached data for:', id);
-            setStockData(data);
-            return;
-          }
-        }
-
-        let response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${id}&apikey=${process.env.API_KEY}`);
-        response = await response.json();
-        console.log(response);
-
-        localStorage.setItem(id, JSON.stringify({ timestamp: new Date().getTime(), data: response }));
-        setStockData(response);
-      } catch (error) {
-        console.error('Error fetching stock data:', error);
-      }
+    const fetchData = async () => {
+      const { data } = await fetchStockData(id);
+      console.log(data)
+      setStockData(data);
     };
-
-    if (id) {
-      fetchStockData();
-    }
+    fetchData();
   }, [id]);
 
   if (!stockData) {
