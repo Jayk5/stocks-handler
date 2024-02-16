@@ -12,20 +12,25 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const cachedData = localStorage.getItem('stockData');
+
         if (cachedData) {
-          const parsedData = JSON.parse(cachedData);
-          setGainersData(parsedData.top_gainers);
-          setLosersData(parsedData.top_losers);
-          setLoading(false);
-          return;
+          const { timestamp, data } = JSON.parse(cachedData);
+          const currentTime = new Date().getTime();
+
+          if (currentTime - timestamp < 24 * 60 * 60 * 1000) {
+            setGainersData(data.top_gainers);
+            setLosersData(data.top_losers);
+            setLoading(false);
+            return;
+          }
         }
 
         setLoading(true);
 
         let response = await fetch(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.API_KEY}`);
         response = await response.json();
-        localStorage.setItem('stockData', JSON.stringify(response));
         const { top_gainers, top_losers } = response;
+        localStorage.setItem('stockData', JSON.stringify({ timestamp: new Date().getTime(), data: response }));
         setGainersData(top_gainers);
         setLosersData(top_losers);
         setLoading(false);

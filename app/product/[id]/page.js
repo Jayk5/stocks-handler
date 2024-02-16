@@ -11,16 +11,22 @@ const ProductPage = ({ params }) => {
     const fetchStockData = async () => {
       try {
         const cachedData = localStorage.getItem(id);
+
         if (cachedData) {
-          const parsedData = JSON.parse(cachedData);
-          console.log(parsedData)
-          setStockData(parsedData);
-          return;
+          const { timestamp, data } = JSON.parse(cachedData);
+          const currentTime = new Date().getTime();
+          if (currentTime - timestamp < 24 * 60 * 60 * 1000) {
+            console.log('Using cached data for:', id);
+            setStockData(data);
+            return;
+          }
         }
+
         let response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${id}&apikey=${process.env.API_KEY}`);
         response = await response.json();
-        console.log(response)
-        localStorage.setItem(id, JSON.stringify(response));
+        console.log(response);
+
+        localStorage.setItem(id, JSON.stringify({ timestamp: new Date().getTime(), data: response }));
         setStockData(response);
       } catch (error) {
         console.error('Error fetching stock data:', error);
