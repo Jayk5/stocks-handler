@@ -1,3 +1,5 @@
+import { fallBackStockData, fallBackTopData, fallBackSearchData } from '../data/dummyData.js';
+
 const fetchStockData = async (id) => {
   try {
     const cachedData = localStorage.getItem(id);
@@ -12,7 +14,10 @@ const fetchStockData = async (id) => {
 
     let response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${id}&apikey=${process.env.API_KEY}`);
     response = await response.json();
-    // console.log(response)
+    if (response.Information) {
+      response = fallBackStockData;
+      return { data: response }
+    }
     localStorage.setItem(id, JSON.stringify({ timestamp: new Date().getTime(), data: response }));
     return { data: response }
   } catch (error) {
@@ -34,6 +39,10 @@ const fetchTopData = async () => {
 
     let response = await fetch(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.API_KEY}`);
     response = await response.json();
+    if (response.Information) {
+      response = fallBackTopData;
+      return { gainers: response.top_gainers, losers: response.top_losers };
+    }
     const { top_gainers, top_losers } = response;
     localStorage.setItem('stockData', JSON.stringify({ timestamp: new Date().getTime(), data: response }));
     return { gainers: top_gainers, losers: top_losers };
@@ -46,6 +55,10 @@ const fetchSearchData = async (query) => {
   try {
     let response = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${process.env.API_KEY}`);
     response = await response.json();
+    if (response.Information) {
+      response = fallBackSearchData;
+      return response.bestMatches;
+    }
     return response.bestMatches;
   } catch (error) {
     console.error('Error fetching search results:', error);
