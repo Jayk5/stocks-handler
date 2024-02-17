@@ -11,7 +11,6 @@ const ProductPage = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await fetchStockData(id);
-      console.log(data)
       setStockData(data);
     };
     fetchData();

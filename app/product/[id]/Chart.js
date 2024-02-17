@@ -1,5 +1,4 @@
-// ChartComponent.js
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Chart, LineSeries, LinearAxis, Tooltip, Point } from 'react-charts';
 
 const ChartComponent = () => {

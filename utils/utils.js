@@ -3,7 +3,6 @@ import { fallBackStockData, fallBackTopData, fallBackSearchData } from '../data/
 const fetchStockData = async (id) => {
   try {
     const cachedData = localStorage.getItem(id);
-    console.log(id)
     if (cachedData) {
       const { timestamp, data } = JSON.parse(cachedData);
       const currentTime = new Date().getTime();
