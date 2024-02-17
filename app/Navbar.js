@@ -38,7 +38,7 @@ const Navbar = () => {
     <nav className="bg-gray-800 p-4 relative">
       <div className="container mx-auto flex items-center justify-between relative">
         <Link href="/">
-          <div className="text-white text-xl font-bold cursor-pointer">Stock Handler</div>
+          <div className="text-white text-xl font-bold cursor-pointer">Stocks Handler</div>
         </Link>
 
         <div className="flex items-center relative">
