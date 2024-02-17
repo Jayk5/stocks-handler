@@ -40,9 +40,6 @@ const ProductPage = ({ params }) => {
     QuarterlyEarningsGrowthYOY = 'N/A',
     QuarterlyRevenueGrowthYOY = 'N/A',
     AnalystTargetPrice = 'N/A',
-    _52WeekHigh = 'N/A',
-    _52WeekLow = 'N/A',
-    _50DayMovingAverage = 'N/A',
   } = stockData;
 
   const stockDetails = [
@@ -60,9 +57,6 @@ const ProductPage = ({ params }) => {
     { label: 'Quarterly Earnings Growth', key: 'QuarterlyEarningsGrowthYOY' },
     { label: 'Quarterly Revenue Growth', key: 'QuarterlyRevenueGrowthYOY' },
     { label: 'Analyst Target Price', key: 'AnalystTargetPrice' },
-    { label: '52 Week High', key: '_52WeekHigh' },
-    { label: '52 Week Low', key: '_52WeekLow' },
-    { label: '50 Day Moving Average', key: '_50DayMovingAverage' },
   ];
 
   return (
