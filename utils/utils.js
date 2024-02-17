@@ -11,7 +11,7 @@ const fetchStockData = async (id) => {
       }
     }
 
-    let response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${id}&apikey=${process.env.API_KEY}`);
+    let response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${id}&apikey=${process.env.NEXT_PUBLIC_APIKEY}`);
     response = await response.json();
     if (response.Information) {
       response = fallBackStockData;
@@ -36,7 +36,7 @@ const fetchTopData = async () => {
       }
     }
 
-    let response = await fetch(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.API_KEY}`);
+    let response = await fetch(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.NEXT_PUBLIC_APIKEY}`);
     response = await response.json();
     if (response.Information) {
       response = fallBackTopData;
@@ -52,7 +52,7 @@ const fetchTopData = async () => {
 
 const fetchSearchData = async (query) => {
   try {
-    let response = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${process.env.API_KEY}`);
+    let response = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${process.env.NEXT_PUBLIC_APIKEY}`);
     response = await response.json();
     if (response.Information) {
       response = fallBackSearchData;
