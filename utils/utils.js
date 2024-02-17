@@ -42,4 +42,14 @@ const fetchTopData = async () => {
   }
 };
 
-export { fetchStockData, fetchTopData };
+const fetchSearchData = async (query) => {
+  try {
+    let response = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${process.env.API_KEY}`);
+    response = await response.json();
+    return response.bestMatches;
+  } catch (error) {
+    console.error('Error fetching search results:', error);
+  }
+}
+
+export { fetchStockData, fetchTopData, fetchSearchData };

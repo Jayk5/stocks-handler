@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { fetchSearchData } from '../utils/utils';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -29,14 +30,8 @@ const Navbar = () => {
       return;
     }
 
-    try {
-      let response = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${process.env.API_KEY}`);
-      response = await response.json();
-      setSearchResults(response.bestMatches);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-      setSearchResults([]);
-    }
+    const results = await fetchSearchData(query);
+    setSearchResults(results);
   };
 
   return (

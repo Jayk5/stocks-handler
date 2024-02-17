@@ -42,7 +42,9 @@ const HomePage = () => {
 
       <div>
         {loading ? (
-          <p>Loading...</p>
+          <p className="flex items-center text-white justify-center text-gray-700">
+            <span className="animate-spin mr-2">&#9696;</span>Loading...
+          </p>
         ) : activeTab === 'gainers' ? (
           <div>
             <h2 className="text-2xl font-bold mb-4">Top Gainers</h2>

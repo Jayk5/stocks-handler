@@ -18,7 +18,9 @@ const ProductPage = ({ params }) => {
   }, [id]);
 
   if (!stockData) {
-    return <div>Loading...</div>;
+    return <p className="flex mt-10 items-center text-white justify-center text-gray-700">
+      <span className="animate-spin mr-2">&#9696;</span>Loading...
+    </p>
   }
 
   const {
