@@ -47,7 +47,7 @@ const Navbar = () => {
             placeholder="Search..."
             value={searchQuery}
             onChange={handleSearch}
-            className="px-2 py-1 mr-2 rounded-md bg-gray-700 text-white w-96"
+            className="px-2 py-1 mr-2 rounded-md bg-gray-700 text-white sm:w-64 md:w-80 lg:w-96 xl:w-96"
             id="search-input"
           />
 
