@@ -1,10 +1,10 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { fetchTopData } from '../utils/utils';
+"use client";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { fetchTopData } from "../utils/utils";
 
 const HomePage = () => {
-  const [activeTab, setActiveTab] = useState('gainers');
+  const [activeTab, setActiveTab] = useState("gainers");
   const [gainersData, setGainersData] = useState([]);
   const [losersData, setLosersData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,16 +25,14 @@ const HomePage = () => {
 
       <div className="flex mb-4">
         <button
-          className={`mr-4 px-4 py-2 ${activeTab === 'gainers' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'
-            }`}
-          onClick={() => setActiveTab('gainers')}
+          className={`mr-4 px-4 py-2 ${activeTab === "gainers" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"}`}
+          onClick={() => setActiveTab("gainers")}
         >
           Biggest Gainers
         </button>
         <button
-          className={`px-4 py-2 ${activeTab === 'losers' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-800'
-            }`}
-          onClick={() => setActiveTab('losers')}
+          className={`px-4 py-2 ${activeTab === "losers" ? "bg-red-500 text-white" : "bg-gray-200 text-gray-800"}`}
+          onClick={() => setActiveTab("losers")}
         >
           Biggest Losers
         </button>
@@ -45,7 +43,7 @@ const HomePage = () => {
           <p className="flex items-center text-white justify-center text-gray-700">
             <span className="animate-spin mr-2">&#9696;</span>Loading...
           </p>
-        ) : activeTab === 'gainers' ? (
+        ) : activeTab === "gainers" ? (
           <div>
             <h2 className="text-2xl font-bold mb-4">Top Gainers</h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

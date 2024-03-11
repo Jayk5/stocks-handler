@@ -1,8 +1,8 @@
-'use client'
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import ChartComponent from './Chart';
-import { fetchStockData } from '../../../utils/utils';
+"use client";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import ChartComponent from "./Chart";
+import { fetchStockData } from "../../../utils/utils";
 
 const ProductPage = ({ params }) => {
   const [stockData, setStockData] = useState(null);
@@ -17,46 +17,48 @@ const ProductPage = ({ params }) => {
   }, [id]);
 
   if (!stockData) {
-    return <p className="flex mt-10 items-center text-white justify-center text-gray-700">
-      <span className="animate-spin mr-2">&#9696;</span>Loading...
-    </p>
+    return (
+      <p className="flex mt-10 items-center text-white justify-center text-gray-700">
+        <span className="animate-spin mr-2">&#9696;</span>Loading...
+      </p>
+    );
   }
 
   const {
-    Symbol = 'N/A',
-    AssetType = 'N/A',
-    Name = 'N/A',
-    Description = 'N/A',
-    Exchange = 'N/A',
-    Country = 'N/A',
-    Sector = 'N/A',
-    Industry = 'N/A',
-    Address = 'N/A',
-    FiscalYearEnd = 'N/A',
-    LatestQuarter = 'N/A',
-    MarketCapitalization = 'N/A',
-    EBITDA = 'N/A',
-    PERatio = 'N/A',
-    QuarterlyEarningsGrowthYOY = 'N/A',
-    QuarterlyRevenueGrowthYOY = 'N/A',
-    AnalystTargetPrice = 'N/A',
+    Symbol = "N/A",
+    AssetType = "N/A",
+    Name = "N/A",
+    Description = "N/A",
+    Exchange = "N/A",
+    Country = "N/A",
+    Sector = "N/A",
+    Industry = "N/A",
+    Address = "N/A",
+    FiscalYearEnd = "N/A",
+    LatestQuarter = "N/A",
+    MarketCapitalization = "N/A",
+    EBITDA = "N/A",
+    PERatio = "N/A",
+    QuarterlyEarningsGrowthYOY = "N/A",
+    QuarterlyRevenueGrowthYOY = "N/A",
+    AnalystTargetPrice = "N/A",
   } = stockData;
 
   const stockDetails = [
-    { label: 'Asset Type', key: 'AssetType' },
-    { label: 'Exchange', key: 'Exchange' },
-    { label: 'Country', key: 'Country' },
-    { label: 'Sector', key: 'Sector' },
-    { label: 'Industry', key: 'Industry' },
-    { label: 'Address', key: 'Address' },
-    { label: 'Fiscal Year End', key: 'FiscalYearEnd' },
-    { label: 'Latest Quarter', key: 'LatestQuarter' },
-    { label: 'Market Capitalization', key: 'MarketCapitalization' },
-    { label: 'EBITDA', key: 'EBITDA' },
-    { label: 'PE Ratio', key: 'PERatio' },
-    { label: 'Quarterly Earnings Growth', key: 'QuarterlyEarningsGrowthYOY' },
-    { label: 'Quarterly Revenue Growth', key: 'QuarterlyRevenueGrowthYOY' },
-    { label: 'Analyst Target Price', key: 'AnalystTargetPrice' },
+    { label: "Asset Type", key: "AssetType" },
+    { label: "Exchange", key: "Exchange" },
+    { label: "Country", key: "Country" },
+    { label: "Sector", key: "Sector" },
+    { label: "Industry", key: "Industry" },
+    { label: "Address", key: "Address" },
+    { label: "Fiscal Year End", key: "FiscalYearEnd" },
+    { label: "Latest Quarter", key: "LatestQuarter" },
+    { label: "Market Capitalization", key: "MarketCapitalization" },
+    { label: "EBITDA", key: "EBITDA" },
+    { label: "PE Ratio", key: "PERatio" },
+    { label: "Quarterly Earnings Growth", key: "QuarterlyEarningsGrowthYOY" },
+    { label: "Quarterly Revenue Growth", key: "QuarterlyRevenueGrowthYOY" },
+    { label: "Analyst Target Price", key: "AnalystTargetPrice" },
   ];
 
   return (
@@ -66,7 +68,9 @@ const ProductPage = ({ params }) => {
           <div className="text-blue-500 hover:underline">Back to Home</div>
         </Link>
       </div>
-      <h1 className="text-4xl font-bold mb-4">{Name} ({Symbol})</h1>
+      <h1 className="text-4xl font-bold mb-4">
+        {Name} ({Symbol})
+      </h1>
       <div className="grid grid-cols-1 gap-8">
         <div className="bg-white">
           <ChartComponent />
@@ -82,7 +86,7 @@ const ProductPage = ({ params }) => {
               {stockDetails.map(({ label, key }) => (
                 <div key={key} className="mb-4">
                   <p className="text-lg font-bold">{label}</p>
-                  <p className="text-xl">{stockData[key] || 'N/A'}</p>
+                  <p className="text-xl">{stockData[key] || "N/A"}</p>
                 </div>
               ))}
             </div>

@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { Chart, LineSeries, LinearAxis, Tooltip, Point } from 'react-charts';
+import React, { useMemo } from "react";
+import { Chart, LineSeries, LinearAxis, Tooltip, Point } from "react-charts";
 
 const ChartComponent = () => {
   const generateRandomData = () => {
@@ -16,24 +16,24 @@ const ChartComponent = () => {
 
   const series = useMemo(
     () => ({
-      type: 'line',
+      type: "line",
     }),
     []
   );
 
   const axes = useMemo(
     () => [
-      { primary: true, type: 'linear', position: 'bottom' },
-      { type: 'linear', position: 'left' },
+      { primary: true, type: "linear", position: "bottom" },
+      { type: "linear", position: "left" },
     ],
     []
   );
 
   return (
-    <div style={{ width: '100%', height: '300px' }}>
+    <div style={{ width: "100%", height: "300px" }}>
       <Chart data={[{ data }]} series={series} axes={axes}>
-        <LinearAxis type="linear" position="left" label="Price" style={{ color: 'white' }} />
-        <LinearAxis type="linear" position="bottom" label="Time" style={{ color: 'white' }} />
+        <LinearAxis type="linear" position="left" label="Price" style={{ color: "white" }} />
+        <LinearAxis type="linear" position="bottom" label="Time" style={{ color: "white" }} />
         <LineSeries />
         <Point series={series} />
         <Tooltip />
