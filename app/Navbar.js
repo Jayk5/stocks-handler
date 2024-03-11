@@ -1,37 +1,44 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { fetchSearchData } from '../utils/utils';
+"use client";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { fetchSearchData } from "../utils/utils";
 
 const Navbar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [debounceTimer, setDebounceTimer] = useState(null);
 
   const handleClickOutside = (e) => {
-    const searchInput = document.getElementById('search-input');
+    const searchInput = document.getElementById("search-input");
     if (searchInput && !searchInput.contains(e.target)) {
       setSearchResults([]);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
 
-    if (query.trim() === '') {
+    if (query.trim() === "") {
       setSearchResults([]);
       return;
     }
 
-    const results = await fetchSearchData(query);
-    setSearchResults(results);
+    clearTimeout(debounceTimer);
+    const timer = setTimeout(async () => {
+      const results = await fetchSearchData(query);
+      if (results.length > 0) {
+        setSearchResults(results);
+      }
+    }, 2000);
+    setDebounceTimer(timer);
   };
 
   return (
@@ -52,12 +59,14 @@ const Navbar = () => {
           />
 
           {searchResults.length > 0 && (
-            <div className="absolute mt-10 p-2 rounded-md shadow-md bg-white text-gray-800"
-              style={{ top: '100%', left: '0', width: '100%', zIndex: 1000 }}>
+            <div
+              className="absolute mt-10 p-2 rounded-md shadow-md bg-white text-gray-800"
+              style={{ top: "100%", left: "0", width: "100%", zIndex: 1000 }}
+            >
               {searchResults.map((result) => (
-                <Link href={`/product/${result['1. symbol']}`} key={result['1. symbol']}>
+                <Link href={`/product/${result["1. symbol"]}`} key={result["1. symbol"]}>
                   <div className="cursor-pointer py-2 px-4 border-b border-gray-300">
-                    {result['2. name']} ({result['1. symbol']})
+                    {result["2. name"]} ({result["1. symbol"]})
                   </div>
                 </Link>
               ))}

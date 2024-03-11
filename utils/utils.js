@@ -52,13 +52,27 @@ const fetchTopData = async () => {
 
 const fetchSearchData = async (query) => {
   try {
+    const cachedData = localStorage.getItem(`searchData_${query}`);
+
+    if (cachedData) {
+      const { timestamp, data } = JSON.parse(cachedData);
+      const currentTime = new Date().getTime();
+      if (currentTime - timestamp < 24 * 60 * 60 * 1000) {
+        return data.bestMatches;
+      }
+    }
+
     let response = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${process.env.NEXT_PUBLIC_APIKEY}`);
     response = await response.json();
+
     if (response.Information) {
       response = fallBackSearchData;
       return response.bestMatches;
     }
-    return response.bestMatches;
+
+    const { bestMatches } = response;
+    localStorage.setItem(`searchData_${query}`, JSON.stringify({ timestamp: new Date().getTime(), data: response }));
+    return bestMatches;
   } catch (error) {
     console.error('Error fetching search results:', error);
   }
